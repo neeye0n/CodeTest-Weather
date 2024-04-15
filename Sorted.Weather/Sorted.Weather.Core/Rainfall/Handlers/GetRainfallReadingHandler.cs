@@ -31,7 +31,7 @@ namespace Sorted.Weather.Core.Rainfall.Handlers
 
                 var limit = int.Parse(request.Count);
 
-                var result = await _weatherService.GetRainfallReadings(request.StationId);
+                var result = await _weatherService.GetRainfallReadings(request.StationId, limit);
                 if (result is null)
                 {
                     _logger.LogInformation("No response from Weather Api");

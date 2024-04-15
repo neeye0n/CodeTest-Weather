@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using Sorted.Weather.Core.Rainfall.Handlers;
 using Sorted.Weather.Core.Rainfall.Validation;
 using Sorted.Weather.Core.Services;
 using System.Reflection;
