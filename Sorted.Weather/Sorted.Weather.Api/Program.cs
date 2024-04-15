@@ -1,6 +1,5 @@
 using Microsoft.OpenApi.Models;
 using Sorted.Weather.Core.Configuration;
-using System.Net.WebSockets;
 
 var builder = WebApplication.CreateBuilder(args);
 
