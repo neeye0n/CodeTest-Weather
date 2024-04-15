@@ -60,3 +60,8 @@ packages/
 # Exclude build output
 bin/
 obj/
+
+# Ignore test result folders
+[Tt]est[Rr]esult*/
+[Bb]in/
+[Oo]bj/

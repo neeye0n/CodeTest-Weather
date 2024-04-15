@@ -1,7 +1,9 @@
-﻿namespace Sorted.Weather.Core.Services
+﻿using Sorted.Weather.Core.Models;
+
+namespace Sorted.Weather.Core.Services
 {
     public interface IWeatherService
     {
-        Task<string> GetRainfallReadings(string stationId, int limit = 10);
+        Task<RainfallApiResponse?> GetRainfallReadings(string stationId, int limit = 10);
     }
 }

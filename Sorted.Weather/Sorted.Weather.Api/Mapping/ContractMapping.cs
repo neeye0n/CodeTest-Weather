@@ -35,7 +35,7 @@ namespace Sorted.Weather.Api.Mapping
             var errorResponse = new ErrorResponse()
             {
                 Message = "Invalid request",
-                Items = source.errors.Select(x => new ErrorDetail
+                Items = source.Errors.Select(x => new ErrorDetail
                 {
                     PropertyName = x.PropertyName,
                     Message = x.ErrorMessage

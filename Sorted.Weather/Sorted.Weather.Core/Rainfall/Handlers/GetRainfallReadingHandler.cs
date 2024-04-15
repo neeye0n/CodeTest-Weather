@@ -2,12 +2,10 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using OneOf.Types;
-using Sorted.Weather.Core.Models;
 using Sorted.Weather.Core.Rainfall.Queries;
 using Sorted.Weather.Core.Rainfall.Validation;
 using Sorted.Weather.Core.Response;
 using Sorted.Weather.Core.Services;
-using System.Text.Json;
 
 namespace Sorted.Weather.Core.Rainfall.Handlers
 {
@@ -27,28 +25,30 @@ namespace Sorted.Weather.Core.Rainfall.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 if (!validationResult.IsValid)
                 {
+                    _logger.LogInformation("Invalid GetRainfallReadingsQuery");
                     return new ValidationFailed(validationResult.Errors);
                 }
 
                 var limit = int.Parse(request.Count);
 
                 var result = await _weatherService.GetRainfallReadings(request.StationId);
-                if (result == null)
+                if (result is null)
                 {
+                    _logger.LogInformation("No response from Weather Api");
                     return new NotFound();
                 }
 
-                var resultObject = JsonSerializer.Deserialize<RainfallApiResponse>(result);
-                if (resultObject.Items.Count == 0)
+                if (result.Items.Count == 0)
                 {
+                    _logger.LogInformation("No readings were found from station {stationId}", request.StationId);
                     return new NotFound();
                 }
 
-                return resultObject;
+                return result;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while handling GetRainfallReadingsQuery.");
+                _logger.LogError(ex, "An error occurred while handling GetRainfallReadingsQuery");
                 return new Error();
             }
         }
